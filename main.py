@@ -6,7 +6,7 @@ import  tornado.options
 import tornado.web
 from sqlalchemy.orm import scoped_session, sessionmaker
 from tornado.options import define, options
-
+from  JsonHandler import JsonHandler
 from Database.models import engine
 
 from files import ImageHandler
@@ -16,7 +16,8 @@ define("port", default=800, help="run on the given port", type=int)
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-            (r"/image", ImageHandler)
+            (r"/image", ImageHandler),
+            (r"/json",JsonHandler )
         ]
         tornado.web.Application.__init__(self, handlers)
         self.db = scoped_session(sessionmaker(bind=engine,
